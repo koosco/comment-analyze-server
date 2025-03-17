@@ -1,0 +1,3 @@
+###
+GET http://localhost:8080/api/words?url=https://www.youtube.com/watch?v=w4A3BqBTO9A&nextToken=Z2V0X25ld2VzdF9maXJzdC0tQ2dnSWdBUVZGN2ZST0JJRkNLZ2dHQUFTQlFpSUlCZ0FFZ1VJaVNBWUFCSUZDSjBnR0FFU0JRaUhJQmdBSWc0S0RBaXByYm0tQmhEWWtfTEtBUQ==
+Accept: application/json
