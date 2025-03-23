@@ -31,7 +31,7 @@ public class Comment {
             processedText = processedText.replaceAll("\\b[a-zA-Z]+\\b", "");
 
             // 4. 특수문자 제거 (숫자, 한글, 공백 제외 모두 제거)
-            processedText = processedText.replaceAll("[^\\p{IsHangul}\\p{IsDigit}\\s]", "");
+            processedText = processedText.replaceAll("[^\\p{IsHangul}\\s]", "");
 
             // 5. 자음/모음 제거 (ㄱ-ㅎ, ㅏ-ㅣ)
             processedText = processedText.replaceAll("[ㄱ-ㅎㅏ-ㅣ]", "");
