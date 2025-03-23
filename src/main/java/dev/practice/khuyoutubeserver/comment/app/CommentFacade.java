@@ -19,7 +19,6 @@ public class CommentFacade {
 
     private final YoutubeService youtubeService;
     private final KomoranService komoranService;
-    private final PostProcessService postProcessService;
 
     public WordCountResponseDto getWordCounts(String url, CommentOrder order, String nextToken) {
         CommentsDto commentsDto = youtubeService.getAllComments(url, order, nextToken);

@@ -1,7 +1,7 @@
 package dev.practice.khuyoutubeserver.comment.app.dto;
 
-import java.util.Map;
+import java.util.List;
 
-public record WordCountResponseDto(Map<String, Integer> wordCounts, String nextPageToken) {
+public record WordCountResponseDto(List<WordCount> wordCounts, String nextPageToken) {
 
 }
