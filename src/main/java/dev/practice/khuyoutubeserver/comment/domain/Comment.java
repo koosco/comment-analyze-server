@@ -3,9 +3,7 @@ package dev.practice.khuyoutubeserver.comment.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @ToString
 @AllArgsConstructor
@@ -43,7 +41,6 @@ public class Comment {
             processedText = processedText.replaceAll("\\s+", " ");
 
         }
-        log.info("commentId={}, processedText={}", commentId, processedText);
         return new Comment(commentId, authorName, processedText, likeCount, publishedAt, parentCommentId);
     }
 }
