@@ -19,7 +19,7 @@ public class CommentFacade {
     private final YoutubeService youtubeService;
     private final KomoranService komoranService;
 
-    public WordCountResponseDto getWordCounts(String url, CommentOrder order, String nextToken) {
+    public WordCountResponseDto getWordCounts(String url, CommentOrder order, int size, String nextToken) {
         CommentsDto commentsDto = youtubeService.getAllComments(url, order, nextToken);
 
         // 댓글 텍스트 전처리
@@ -42,6 +42,7 @@ public class CommentFacade {
         List<WordCount> wordCountList = wordCounts.entrySet().stream()
                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
                 .filter(entry -> entry.getValue() > 2)
+                .limit(size)
                 .map(entry -> new WordCount(entry.getKey(), entry.getValue()))
                 .toList();
 

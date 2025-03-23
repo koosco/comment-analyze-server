@@ -22,9 +22,10 @@ public class CommentController {
     public ResponseDto<WordCountResponseDto> getWordCounts(
         @RequestParam("url") String url,
         @RequestParam(value = "order", required = false) CommentOrder order,
+        @RequestParam(value = "size", defaultValue = "20") int size,
         @RequestParam(value = "nextToken", required = false) String nextToken
     ) {
-        return ResponseDto.ok(commentFacade.getWordCounts(url, order, nextToken));
+        return ResponseDto.ok(commentFacade.getWordCounts(url, order, size, nextToken));
     }
 
     @GetMapping("/detail")
