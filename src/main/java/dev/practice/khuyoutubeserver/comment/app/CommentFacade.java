@@ -1,8 +1,7 @@
 package dev.practice.khuyoutubeserver.comment.app;
 
-import dev.practice.khuyoutubeserver.comment.app.dto.CommentsDto;
-import dev.practice.khuyoutubeserver.comment.app.dto.WordCount;
-import dev.practice.khuyoutubeserver.comment.app.dto.WordCountResponseDto;
+import dev.practice.khuyoutubeserver.comment.app.dto.*;
+import dev.practice.khuyoutubeserver.comment.domain.Comment;
 import dev.practice.khuyoutubeserver.comment.domain.CommentOrder;
 import dev.practice.khuyoutubeserver.comment.domain.Words;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +46,20 @@ public class CommentFacade {
                 .toList();
 
         return new WordCountResponseDto(wordCountList, commentsDto.nextPageToken());
+    }
+
+    public WordDetailsResponseDto getDetailComments(String url, CommentOrder order, String nextToken, String word) {
+        CommentsDto commentsDto = youtubeService.getAllComments(url, order, nextToken);
+
+        List<WordDetailResponseDto> actualComments = commentsDto.comments().comments().stream()
+                .map(Comment::getText)
+                .filter(text -> {
+                    // 댓글 텍스트 형태소 분석 후 필터된 단어 리스트 추출
+                    Words filtered = komoranService.getFilteredAndNormalizedWords(text);
+                    return filtered.contains(word); // 포함 여부 확인
+                })
+                .map(WordDetailResponseDto::new)
+                .toList();
+        return new WordDetailsResponseDto(actualComments, commentsDto.nextPageToken());
     }
 }

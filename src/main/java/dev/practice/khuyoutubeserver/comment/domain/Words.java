@@ -31,4 +31,9 @@ public record Words(List<Word> words) {
                 .filter(word -> word.getWord().length() > 1)
                 .collect(Collectors.toMap(Word::getWord, word -> 1, Integer::sum));
     }
+
+    public boolean contains(String word) {
+        return words.stream()
+                .anyMatch(w -> w.getWord().equals(word));
+    }
 }

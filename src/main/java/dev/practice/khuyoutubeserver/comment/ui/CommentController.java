@@ -2,6 +2,7 @@ package dev.practice.khuyoutubeserver.comment.ui;
 
 import dev.practice.khuyoutubeserver.comment.app.CommentFacade;
 import dev.practice.khuyoutubeserver.comment.app.dto.WordCountResponseDto;
+import dev.practice.khuyoutubeserver.comment.app.dto.WordDetailsResponseDto;
 import dev.practice.khuyoutubeserver.comment.domain.CommentOrder;
 import dev.practice.khuyoutubeserver.common.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/words")
 public class CommentController {
 
-    private final CommentFacade wordService;
+    private final CommentFacade commentFacade;
 
     @GetMapping
     public ResponseDto<WordCountResponseDto> getWordCounts(
-        @RequestParam String url,
-        @RequestParam(required = false) CommentOrder order,
-        @RequestParam(required = false) String nextToken
+        @RequestParam("url") String url,
+        @RequestParam(value = "order", required = false) CommentOrder order,
+        @RequestParam(value = "nextToken", required = false) String nextToken
     ) {
-        return ResponseDto.ok(wordService.getWordCounts(url, order, nextToken));
+        return ResponseDto.ok(commentFacade.getWordCounts(url, order, nextToken));
+    }
+
+    @GetMapping("/detail")
+    public ResponseDto<WordDetailsResponseDto> getDetailSentences(
+            @RequestParam("url") String url,
+            @RequestParam(value = "order", required = false) CommentOrder order,
+            @RequestParam(value = "nextToken", required = false) String nextToken,
+            @RequestParam("word") String word) {
+        return ResponseDto.ok(commentFacade.getDetailComments(url, order, nextToken, word));
     }
 }

@@ -27,4 +27,11 @@ public record Comments(List<Comment> comments) {
             .map(Comment::getText)
             .toList();
     }
+
+    public Comments filterByWord(String word) {
+        return new Comments(
+            comments.stream()
+                    .filter(comment -> comment.getText().contains(word))
+                    .toList());
+    }
 }
